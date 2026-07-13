@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Date Calculator - Days Between Dates, Add Subtract Days</title>
+    <meta name="description" content="Free date calculator. Calculate days between two dates, add or subtract days from a date, find how many days until an event, or days since a past date. Fast and accurate.">
+    <meta name="keywords" content="date calculator, days between dates, how many days until, days since, add days to date, subtract days, date difference calculator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://binosheen97.github.io/date-calculator/">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Date Calculator - Days Between Dates & More">
+    <meta property="og:description" content="Calculate days between dates, add/subtract days, find days until or since any date. Free and instant.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://binosheen97.github.io/date-calculator/">
+
+    <!-- Google Verification -->
+    <meta name="google-site-verification" content="cBtI9qnEEtgjEyN--AIkGKP__lNGdHbMJEZI72XqDSo" />
+    <meta name="google-adsense-account" content="ca-pub-9209701505864374">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QV903LBHRQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-QV903LBHRQ');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9209701505864374" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📅 Date Calculator</h1>
+            <p class="subtitle">Calculate Dates, Durations & Countdowns Instantly</p>
+        </header>
+
+        <div class="calculator-container">
+
+            <!-- Left Column -->
+            <div class="left-column">
+
+                <!-- Tab Buttons -->
+                <div class="tab-buttons">
+                    <button class="tab-btn active" onclick="switchTab('between')">Days Between</button>
+                    <button class="tab-btn" onclick="switchTab('add-subtract')">Add / Subtract</button>
+                    <button class="tab-btn" onclick="switchTab('days-until')">Days Until</button>
+                    <button class="tab-btn" onclick="switchTab('days-since')">Days Since</button>
+                </div>
+
+                <!-- Tab 1: Days Between Two Dates -->
+                <div class="calc-card" id="tab-between">
+                    <h2>Days Between Two Dates</h2>
+                    <p class="card-desc">Find the exact difference between any two dates</p>
+                    <div class="input-group">
+                        <label for="from-date">Start Date</label>
+                        <input type="date" id="from-date" class="date-input">
+                    </div>
+                    <div class="input-group">
+                        <label for="to-date">End Date</label>
+                        <input type="date" id="to-date" class="date-input">
+                    </div>
+                    <button class="calculate-btn" onclick="calcBetween()">
+                        <span>Calculate</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                    <div class="error-msg" id="err-between"></div>
+                    <div class="result-box" id="res-between"></div>
+                </div>
+
+                <!-- Tab 2: Add / Subtract Days -->
+                <div class="calc-card hidden" id="tab-add-subtract">
+                    <h2>Add / Subtract from a Date</h2>
+                    <p class="card-desc">Find what date it will be after adding or subtracting time</p>
+                    <div class="input-group">
+                        <label for="base-date">Starting Date</label>
+                        <input type="date" id="base-date" class="date-input">
+                    </div>
+                    <div class="operation-row">
+                        <div class="input-group" style="flex:1">
+                            <label>Operation</label>
+                            <select id="operation" class="select-input">
+                                <option value="add">➕ Add</option>
+                                <option value="subtract">➖ Subtract</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="duration-grid">
+                        <div class="input-group">
+                            <label>Years</label>
+                            <input type="number" id="add-years" class="num-input" placeholder="0" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label>Months</label>
+                            <input type="number" id="add-months" class="num-input" placeholder="0" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label>Weeks</label>
+                            <input type="number" id="add-weeks" class="num-input" placeholder="0" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label>Days</label>
+                            <input type="number" id="add-days" class="num-input" placeholder="0" min="0">
+                        </div>
+                    </div>
+                    <button class="calculate-btn" onclick="calcAddSubtract()">
+                        <span>Calculate</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                    <div class="error-msg" id="err-as"></div>
+                    <div class="result-box" id="res-add-subtract"></div>
+                </div>
+
+                <!-- Tab 3: Days Until -->
+                <div class="calc-card hidden" id="tab-days-until">
+                    <h2>Days Until a Future Date</h2>
+                    <p class="card-desc">Countdown to birthdays, holidays, events & more</p>
+                    <div class="input-group">
+                        <label for="until-date">Target Date</label>
+                        <input type="date" id="until-date" class="date-input">
+                    </div>
+                    <div class="input-group">
+                        <label for="until-name">Event Name (optional)</label>
+                        <input type="text" id="until-name" class="text-input" placeholder="e.g. Christmas, Birthday...">
+                    </div>
+                    <button class="calculate-btn" onclick="calcUntil()">
+                        <span>Calculate</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                    <div class="error-msg" id="err-until"></div>
+                    <div class="result-box" id="res-until"></div>
+                </div>
+
+                <!-- Tab 4: Days Since -->
+                <div class="calc-card hidden" id="tab-days-since">
+                    <h2>Days Since a Past Date</h2>
+                    <p class="card-desc">Find how long ago something happened</p>
+                    <div class="input-group">
+                        <label for="since-date">Past Date</label>
+                        <input type="date" id="since-date" class="date-input">
+                    </div>
+                    <div class="input-group">
+                        <label for="since-name">Event Name (optional)</label>
+                        <input type="text" id="since-name" class="text-input" placeholder="e.g. Wedding, Birth...">
+                    </div>
+                    <button class="calculate-btn" onclick="calcSince()">
+                        <span>Calculate</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                    <div class="error-msg" id="err-since"></div>
+                    <div class="result-box" id="res-since"></div>
+                </div>
+
+                <!-- Ad Unit -->
+                <div class="ad-container">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-9209701505864374"
+                         data-ad-slot="auto"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+
+                <div class="today-card">
+                    <h3>📆 Today</h3>
+                    <div class="today-date" id="today-display"></div>
+                    <div class="today-details" id="today-details"></div>
+                </div>
+
+                <div class="events-card">
+                    <h3>🎉 Quick Countdowns</h3>
+                    <p class="card-desc" style="margin-bottom:15px;">Click any event to calculate days until</p>
+                    <div class="event-list" id="event-list"></div>
+                </div>
+
+                <div class="reference-card">
+                    <h3>📌 Quick Facts</h3>
+                    <div class="fact-list">
+                        <div class="fact-item">
+                            <span>1 week</span>
+                            <span>7 days</span>
+                        </div>
+                        <div class="fact-item">
+                            <span>1 month (avg)</span>
+                            <span>30.44 days</span>
+                        </div>
+                        <div class="fact-item">
+                            <span>1 year</span>
+                            <span>365 days</span>
+                        </div>
+                        <div class="fact-item">
+                            <span>1 leap year</span>
+                            <span>366 days</span>
+                        </div>
+                        <div class="fact-item">
+                            <span>1 decade</span>
+                            <span>3,652 days</span>
+                        </div>
+                        <div class="fact-item">
+                            <span>1 century</span>
+                            <span>36,524 days</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-section">
+            <div class="info-card">
+                <h2>How to Use the Date Calculator</h2>
+                <p>Our date calculator has 4 powerful modes. Choose the one that fits your need and get instant results.</p>
+                <ul>
+                    <li><strong>Days Between:</strong> Enter two dates to find the exact difference</li>
+                    <li><strong>Add/Subtract:</strong> Pick a date and add or remove years, months, weeks, or days</li>
+                    <li><strong>Days Until:</strong> See countdown to any upcoming event</li>
+                    <li><strong>Days Since:</strong> Find out how long ago something happened</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h2>Common Uses</h2>
+                <ul>
+                    <li><strong>Events:</strong> Countdown to birthdays, weddings, holidays</li>
+                    <li><strong>Work:</strong> Project deadlines, contract durations</li>
+                    <li><strong>Legal:</strong> Court dates, notice periods, deadlines</li>
+                    <li><strong>Health:</strong> Pregnancy due dates, medication schedules</li>
+                    <li><strong>Finance:</strong> Loan terms, investment periods</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h2>Frequently Asked Questions</h2>
+                <ul>
+                    <li><strong>Does it include leap years?</strong> Yes, all calculations account for leap years automatically.</li>
+                    <li><strong>Are end dates included?</strong> Yes, the end date is included in the count.</li>
+                    <li><strong>What's the furthest date?</strong> You can calculate dates hundreds of years in the past or future.</li>
+                    <li><strong>Is it free?</strong> Yes, completely free with no registration needed.</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p><a href="/">Home</a> | <a href="/age-calculator/">Age Calculator</a> | <a href="/bmi-calculator/">BMI Calculator</a> | <a href="/percentage-calculator/">Percentage Calculator</a> | <a href="/date-calculator/">Date Calculator</a></p>
+            <p><a href="/about.html">About Us</a> | <a href="/contact.html">Contact</a> | <a href="/privacy-policy.html">Privacy Policy</a> | <a href="/terms-of-service.html">Terms of Service</a></p>
+            <p>&copy; 2026 Date Calculator. Free online date difference calculator.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
